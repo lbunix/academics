@@ -65,5 +65,5 @@ echo -e "\nLet's add the total of the files in the first selection and the total
 echo -e "\nCalculating...\n"
 totaldirCount=$((dir1Count + dir2Count))
 totalfileCount=$((file1Count + file2Count))
-echo -e "\nYour total file count is: ${totafileCount}\n"
+echo -e "\nYour total file count is: ${totalfileCount}\n"
 echo -e "\nYour total directory count is: ${totaldirCount\n}"
