@@ -23,6 +23,7 @@ do
 			echo -e "You have selected: ${dir1Select}\n\n"
 			dir1Count=$(find "/${dir1Select}" -type d 2>/dev/null | wc -l)
 			file1Count=$(find "/${dir1Select}" -type f 2>/dev/null | wc -l)
+			echo -e "Note: If the number is 0, this directory is a symlink!\n"
 			echo -e "There are ${dir1Count} directories in /${dir1Select}\n"
 			echo -e "There are ${file1Count} files in /${dir1Select}\n"
 			break 2
@@ -52,6 +53,7 @@ do
 	                echo -e "You have selected: ${dir2Select}\n\n"
                         dir2Count=$(find "/${dir2Select}" -type d 2>/dev/null | wc -l)
                         file2Count=$(find "/${dir2Select}" -type f 2>/dev/null | wc -l)
+						echo -e "Note: If the number is 0, this directory is a symlink!\n"
                         echo -e "There are ${dir2Count} directories in /${dir2Select}\n"
                         echo -e "There are ${file2Count} files in /${dir2Select}\n"
 	                break 2
