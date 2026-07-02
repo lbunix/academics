@@ -49,7 +49,7 @@ do
 
       echo -e "\n\nWhich lines would you like to remove?\n"
       cat -n "${finalSearch}"
-      echo -e "\n(?): "
+      echo -en "\n(?): "
       read entryRemove
 
       if [[ ! "$entryRemove" =~ ^[0-9]+([[:space:]][0-9]+)*$ ]]
