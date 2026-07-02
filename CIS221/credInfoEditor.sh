@@ -34,7 +34,7 @@ done
 while true
 do
 
-  echo -e "\nWould you like to remove an entry (r|R), add an entry (a|A), or quit session (q|Q)?\n"
+  echo -e "\n\nWould you like to remove an entry (r|R), add an entry (a|A), or quit session (q|Q)?\n"
   cat "${finalSearch}"
   echo -en "\n(?): "
   read entry
@@ -47,21 +47,22 @@ do
     while true
     do
 
-      echo -e "\nWhich lines would you like to remove?\n"
+      echo -e "\n\nWhich lines would you like to remove?\n"
       cat -n "${finalSearch}"
+      echo -e "\n(?): "
       read entryRemove
 
       if [[ ! "$entryRemove" =~ ^[0-9]+([[:space:]][0-9]+)*$ ]]
       then
-	  echo -e "\nInvalid entry. Numbers only."
-	  continue
+          echo -e "\nInvalid entry. Numbers only."
+          continue
       fi
 
       sedEntry=()
 
       for num in $entryRemove
       do
-	sedEntry+=(-e "${num}d")
+        sedEntry+=(-e "${num}d")
       done
 
       sed -i "${sedEntry[@]}" "$finalSearch"
@@ -74,53 +75,53 @@ do
 
     a|A)
 
-      echo -en "\nPlease enter the person's full name: "
+      echo -en "\n\nPlease enter the person's full name: "
       read name
 
       upperName=""
 
       for word in $name
       do
-	word="${word^}"
-	upperName="${upperName:+$upperName }$word"
+        word="${word^}"
+        upperName="${upperName:+$upperName }$word"
       done
 
-	while true
-	do
+        while true
+        do
 
           echo -en "\nPlease enter the person's card type (Visa, American Express, Mastercard, Discover): "
           read type
 
-	  case "$type" in
-	      Visa|"American Express"|Mastercard|Discover)
-		  break
-		  ;;
-	      * )
-		  echo -e "\nInvalid Entry, please input the correct card type."
-		  continue
-		  ;;
-	  esac
-	done
+          case "$type" in
+              Visa|"American Express"|Mastercard|Discover)
+                  break
+                  ;;
+              * )
+                  echo -e "\nInvalid Entry, please input the correct card type."
+                  continue
+                  ;;
+          esac
+        done
 
-	while true
-	do
+        while true
+        do
 
           echo -en "\nPlease enter the complete card number (1111 222222 33333): "
           read cardNumber
 
           if [[ "$cardNumber" =~ ^[0-9]{4}[[:space:]][0-9]{6}[[:space:]][0-9]{5}$ ]]
           then
-	      break
+              break
           else
-	      echo -e "\nInvalid card number. Format: 4 digits space 6 digits space 5 digits."
-	      continue
+              echo -e "\nInvalid card number. Format: 4 digits space 6 digits space 5 digits."
+              continue
           fi
-	done
+        done
 
-	echo "$upperName $type $cardNumber" >> "$finalSearch"
-	echo -e "Entry Added."
+        echo "$upperName $type $cardNumber" >> "$finalSearch"
+        echo -e "\n\nEntry Added.\n"
 
-	tail -n 5 "$finalSearch"
+        tail -n 5 "$finalSearch"
         ;;
 
     q|Q)
