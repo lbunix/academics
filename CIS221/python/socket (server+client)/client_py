@@ -1,6 +1,6 @@
 import socket
 
-def client_py()
+def client_py():
     PORT = 1738
     CLIENT = socket.gethostname()
 
