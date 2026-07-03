@@ -2,7 +2,7 @@ import socket
 
 def server_py():
     PORT = 1738
-    SERVER = socket.gethostname()
+    SERVER = "0.0.0.0"
 
     server = socket.socket()
 
