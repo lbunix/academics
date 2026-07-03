@@ -17,7 +17,7 @@ def server_py():
         if not data:
 
             break
-        print('[' + str(address) + ']' + ">" + str(data))
+        print('[' + str(address) + ']' + " > " + str(data))
         data = input('what''s the message > ')
         conn.send(data.encode())
 
