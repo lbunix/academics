@@ -2,10 +2,10 @@ import socket
 
 def client_py():
     PORT = 1738
-    CLIENT = socket.gethostname()
+    SERVER = "lbunix1"
 
     client = socket.socket()
-    client.connect((CLIENT, PORT))
+    client.connect((SERVER, PORT))
 
     message = input("Send a message or close connection with 'end' > ")
 
