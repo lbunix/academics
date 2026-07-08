@@ -55,7 +55,7 @@ case "${scanType}" in
             if [[ ! "$ipInput" =~ ^$octect\.$octect\.$octect\.$octect$ ]]
             then
                 echo ""
-                echo -e "Please input a correct IP address."
+                echo -e "Please input a correct IP address or quit (q|Q)."
                 continue
             else
                 echo ""
