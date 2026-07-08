@@ -3,7 +3,6 @@
 # Globals
 
 octect='(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)'
-baseCount=$0
 
 # Globals
 
