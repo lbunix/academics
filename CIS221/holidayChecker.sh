@@ -127,7 +127,7 @@ do
             printf ' - %s\n' "${dec[@]}"
             continue
             ;;
-        q|Q|quit|QUIT)
+        q|Q|quit|Quit|QUIT)
             echo -e "\nClosing tool.\n"
             exit 0
             ;;
