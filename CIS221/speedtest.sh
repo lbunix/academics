@@ -25,11 +25,12 @@ do
             outputFile="speedtest-log(simple)_$date.txt"
 
             echo
-            echo -e "Conducting silent speed test now.\n"
+            echo -e "Conducting silence speed test now.\n"
             echo -e "===================================\n"
             speedtest-cli --simple | tee "$outputFolder/$outputFile"
 
-            echo -e "Output file created: $outputFile"
+            echo -e "Output file created: $outputFolder/$outputFile"
+            echo
 
             exit 0
             ;;
@@ -41,7 +42,8 @@ do
             echo -e "===================================\n"
             speedtest-cli | tee "$outputFolder/$outputFile"
 
-            echo -e "Output file created: $outputFile"
+            echo -e "Output file created: $outputFolder/$outputFile"
+            echo
 
             exit 0
             ;;
@@ -55,6 +57,7 @@ do
             echo
             echo -e "Invalid input. Please try again.\n"
             echo -e "If you would like to quit, enter q or Q."
+            echo
 
             continue
     esac
