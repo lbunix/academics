@@ -25,7 +25,7 @@ do
             outputFile="speedtest-log(simple)_$date.txt"
 
             echo
-            echo -e "Conducting silence speed test now.\n"
+            echo -e "Conducting silent speed test now.\n"
             echo -e "===================================\n"
             speedtest-cli --simple | tee "$outputFolder/$outputFile"
 
