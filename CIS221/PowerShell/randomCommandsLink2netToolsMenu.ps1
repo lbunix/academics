@@ -23,7 +23,7 @@ while ($quit -ne "yes") {
     switch ($select) {
 
         1 {$hostName = $env:COMPUTERNAME
-           Write-Host "The hostname of this machine is: $hostName"
+           Write-Host "`nThe hostname of this machine is: $hostName"
         }
 
         2 {Get-Process |
@@ -32,7 +32,9 @@ while ($quit -ne "yes") {
 
         3 {& 'C:\Users\student\Documents\CIS221\LAB 6\netToolsMenu.ps1'}
 
-        4 {Get-Commands}
+        4 {Get-Command |
+           Select-Object -First 10
+        }
 
         5 {Write-Host "`nEnding session."
            $quit = "yes"
