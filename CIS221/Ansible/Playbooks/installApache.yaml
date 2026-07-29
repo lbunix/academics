@@ -1,0 +1,20 @@
+---
+- hosts: lbunix2
+  become: true
+
+  tasks:
+    - name: Update repo and upgrade packages
+      apt:
+        update_cache: true
+        upgrade: dist
+
+    - name: Install Apache Web Server
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+
+    - name: Start Apache
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: true
