@@ -6,7 +6,7 @@ function ShowMenu {
     Clear-Host
 
     Write-Host "===== $title ====="
-    Write-Host "1. Run Traceroute"
+    Write-Host "`n1. Run Traceroute"
     Write-Host "2. Local IP address configurations"
     Write-Host "3. Eth health & speeds"
     Write-Host "4. Ping a domain"
@@ -19,7 +19,7 @@ $quit = "no"
 while ($quit -ne "yes") {
 
     ShowMenu
-    $select = Read-Host "Select a number from the list."
+    $select = Read-Host "`nSelect a number from the list."
     switch ($select) {
 
         1 {$target = Read-Host "What domain would you like to traceroute? "
@@ -41,7 +41,7 @@ while ($quit -ne "yes") {
         
         }
 
-        Default {Write-Host "Incorrect input."}
+        Default {Write-Host "`nIncorrect input."}
     }
 
     if ($quit -ne "yes") {
