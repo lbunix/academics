@@ -1,0 +1,36 @@
+---
+- name: Configuring ufw
+  hosts: lbunix2
+  become: true
+
+  tasks:
+    - name: Confirm ufw is installed
+      apt:
+        name: ufw
+        state: present
+
+    - name: ufw - allowing ssh
+      ufw:
+        rule: allow
+        from_ip: "192.168.101.170"
+        port: "22"
+        proto: tcp
+
+    - name: ufw - allowing http
+      ufw:
+        rule: allow
+        port: "80"
+
+    - name: ufw - allowing https
+      ufw:
+        rule: allow
+        port: "443"
+
+    - name: ufw - disabling all other traffic (INB)
+      ufw:
+        direction: incoming
+        policy: deny
+
+    - name: ufw - enabling
+      ufw:
+        state: enabled
