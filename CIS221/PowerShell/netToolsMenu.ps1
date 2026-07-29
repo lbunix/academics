@@ -19,24 +19,24 @@ $quit = "no"
 while ($quit -ne "yes") {
 
     ShowMenu
-    $select = Read-Host "`nSelect a number from the list."
+    $select = Read-Host "`nSelect a number from the list"
     switch ($select) {
 
         1 {$target = Read-Host "What domain would you like to traceroute? "
-           Test-NetConnection -ComputerName $target -TraceRoute
+           Test-NetConnection -RemoteAddress $target -TraceRoute
         }
         
         2 {Get-NetIPConfiguration}
 
-        3 {Get-NetAdapter | 
+        3 {Get-NetAdapter |
            Format-Table Name, Status, LinkSpeed, MacAddress
         }
 
         4 {$target = Read-Host "What domain would you like to ping? "
-           Test-NetConnection -ComputerName $target
+           Test-NetConnection -RemoteAddress $target
         }
 
-        5 {Write-Host "Ending session."
+        5 {Write-Host "`nEnding session."
            $quit = "yes"
         
         }
