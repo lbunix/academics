@@ -1,4 +1,4 @@
-function userAdminMenu {
+function userGroupAdminMenu {
     param (
         $title = 'User/Group Admin Menu'
     )
