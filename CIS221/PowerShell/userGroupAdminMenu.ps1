@@ -3,7 +3,7 @@ function userAdminMenu {
         $title = 'User/Group Admin Menu'
     )
 
-    Write-Host "========== $title =========="
+    Write-Host "`n========== $title =========="
     Write-Host "`n1. Create a new local user"
     Write-Host "2. Add local user to a security group"
     Write-Host "3. Remove a local user"
@@ -20,9 +20,11 @@ function listUsers {
         $title = 'Users'
     )
 
-    Write-Host "========== $title =========="
-    Get-LocalUser
+    Write-Host "`n========== $title =========="
 
+    Get-LocalUser |
+        Format-Table Name, Enabled, Description -AutoSize |
+        Out-Host
 }
 
 function listGroups {
@@ -30,8 +32,11 @@ function listGroups {
         $title = 'Groups'
     )
 
-    Write-Host "========== $title =========="
-    Get-LocalGroup
+    Write-Host "`n========== $title =========="
+
+    Get-LocalGroup |
+        Format-Table Name, Enabled, Description -AutoSize |
+        Out-Host
 
   }
 
@@ -53,11 +58,11 @@ function listGroups {
                         Get-LocalUser -Name $userSelect | 
                             select-Object *
 
-                        break
+                        break userList
 
                     }
                     elseif ($userInfo -in @("n", "no")) {
-                        break
+                        break userList
                     }
                     else {
                         Write-Host "`nInvalid Input. Enter y/YES or n/NO."
@@ -83,6 +88,7 @@ function listGroups {
         
             { $_ -in @("y", "yes") } {
                 listGroups
+                break groupList
             }
 
             { $_ -in @("n", "no") } {
@@ -153,10 +159,10 @@ while ($quit -ne "yes") {
 
            :userAddGroup while ($true) {
 
-               Get-LocalUser
+               listUsers
                $userSelect = Read-Host "`nSelect a user"
 
-               Get-LocalGroup
+               listGroups
                $groupSelect = Read-Host "`nSelect a group you would like to add the user to"
 
                Write-Host "`nYou entered:"
@@ -353,12 +359,18 @@ while ($quit -ne "yes") {
 
            listUsers
 
-           groupUsers
+           listGroups
 
         }
 
         default {
-            Write-Host "Invalid selection. Enter options 1 - 8."
+            Write-Host "`nInvalid selection. Enter options 1 - 8."
         }
+
+    }
+
+    if ($quit -ne "yes") {
+        Read-Host "Press ENTER to return to the menu" |
+        Out-Null
     }
 }
