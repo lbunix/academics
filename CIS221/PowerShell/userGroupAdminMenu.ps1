@@ -35,7 +35,7 @@ function listGroups {
     Write-Host "`n========== $title =========="
 
     Get-LocalGroup |
-        Format-Table Name, Enabled, Description -AutoSize |
+        Format-Table Name, Description -AutoSize |
         Out-Host
 
   }
@@ -106,7 +106,7 @@ $quit = "no"
 
 while ($quit -ne "yes") {
 
-    userAdminMenu
+    userGroupAdminMenu
 
     $select = Read-Host "`nSelect an option (number) from the menu"
     switch ($select) {
@@ -177,8 +177,9 @@ while ($quit -ne "yes") {
                     
                         Add-LocalGroupMember -Group $groupSelect -Member $userSelect
 
-                        Get-LocalUser -Name $userSelect |
-                            Select-Object *
+                        Get-LocalGroupMember -Group $groupSelect |
+                            Format-Table Name, ObjectClass, PrincipalSource -AutoSize |
+                            Out-Host
 
                         break userAddGroup
                     }
@@ -259,8 +260,9 @@ while ($quit -ne "yes") {
 
                         Remove-LocalGroupMember -Group $groupSelect -Member $userSelect
 
-                        Get-LocalUser -Name $userSelect |
-                            Select-Object *
+                        Get-LocalGroupMember -Group $groupSelect |
+                            Format-Table Name, ObjectClass, PrincipalSource -AutoSize |
+                            Out-Host
 
                         break removeUserGroup
 
@@ -341,7 +343,7 @@ while ($quit -ne "yes") {
                     }
 
                     { $_ -in @("n", "no") } {
-                        Write-Host "`nReturning to group seleciton"
+                        Write-Host "`nReturning to group selection"
                         continue removeGroup
                     }
 
@@ -363,6 +365,11 @@ while ($quit -ne "yes") {
 
         }
 
+        8 {
+            $quit = "yes"
+            Write-Host "`nEnding session.`n"
+        }
+
         default {
             Write-Host "`nInvalid selection. Enter options 1 - 8."
         }
@@ -371,6 +378,6 @@ while ($quit -ne "yes") {
 
     if ($quit -ne "yes") {
         Read-Host "Press ENTER to return to the menu" |
-        Out-Null
+            Out-Null
     }
 }
