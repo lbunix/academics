@@ -205,7 +205,7 @@ while ($quit -ne "yes") {
 
            :removeUser while ($true) {
 
-                Get-LocalUser
+                listUsers
                 $userSelect = Read-Host "`nSelect a user to remove"
 
                 Write-Host "`nYou entered:"
@@ -243,10 +243,10 @@ while ($quit -ne "yes") {
 
            :removeUserGroup while ($true) {
                 
-                Get-LocalUser
+                listUsers
                 $userSelect = Read-Host "`nSelect a user"
 
-                Get-LocalGroup
+                listGroups
                 $groupSelect = Read-Host "`nSelect a group you would like to remove the user from"
 
                 Write-Host "`nYou entered:"
@@ -299,7 +299,7 @@ while ($quit -ne "yes") {
 
                         New-LocalGroup -Name $groupName
 
-                        Get-LocalGroup
+                        listGroups
 
                         break createGroup
                     }
@@ -323,7 +323,7 @@ while ($quit -ne "yes") {
 
            :removeGroup while ($true) {
 
-                Get-LocalGroup
+                listGroups
                 $groupSelect = Read-Host "Input the group name"
 
                 Write-Host "`nYou entered:"
@@ -337,7 +337,7 @@ while ($quit -ne "yes") {
 
                         Remove-LocalGroup -Name $groupSelect
 
-                        Get-LocalGroup
+                        listGroups
 
                         break removeGroup
                     }
@@ -379,5 +379,7 @@ while ($quit -ne "yes") {
     if ($quit -ne "yes") {
         Read-Host "Press ENTER to return to the menu" |
             Out-Null
+
+        Clear-Host
     }
 }
