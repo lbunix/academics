@@ -110,7 +110,7 @@ while ($quit -ne "yes") {
 
             :userCreation while ($true) {
         
-                $screeName = Read-Host "Input a username"
+                $screenName = Read-Host "Input a username"
                 $password = Read-Host "Input a password" -AsSecureString
                 $firstName = Read-Host "Input the user's first name"
                 $lastName = Read-Host "Input the user's last name"
@@ -127,7 +127,7 @@ while ($quit -ne "yes") {
                     { $_ -in @("y", "yes") } {
                         Write-Host "Creating user $screenName.."
 
-                        New-LocalUser -Name $screeName -Password $password -Fullname "$firstName $lastName" -Description $description
+                        New-LocalUser -Name $screenName -Password $password -Fullname "$firstName $lastName" -Description $description
 
                         break userCreation
                     }
@@ -146,10 +146,6 @@ while ($quit -ne "yes") {
             }
         }
 
-        default {
-            Write-Host "Invalid Input."
-        }
-    }
 
         2 {
         
@@ -231,11 +227,138 @@ while ($quit -ne "yes") {
                         continue removeUser
                     }
                 }
+            }
         }
 
         4 {
 
+           Clear-Host
+
+           :removeUserGroup while ($true) {
+                
+                Get-LocalUser
+                $userSelect = Read-Host "`nSelect a user"
+
+                Get-LocalGroup
+                $groupSelect = Read-Host "`nSelect a group you would like to remove the user from"
+
+                Write-Host "`nYou entered:"
+                Write-Host "User:  $userSelect"
+                Write-Host "Group: $groupSelect"
+
+                $userGroupConfirm = Read-Host "Is the information correct? (y/YES or n/NO)"
+                switch ($userGroupConfirm) {
+                    { $_ -in @("y", "yes") } {
+                        Write-Host "Removing $userSelect from $groupSelect.."
+
+                        Remove-LocalGroupMember -Group $groupSelect -Member $userSelect
+
+                        Get-LocalUser -Name $userSelect |
+                            Select-Object *
+
+                        break removeUserGroup
+
+                    }
+
+                    { $_ -in @("n", "no") } {
+                        Write-Host "`nReturning to selection"
+                        continue removeUserGroup
+                    }
+
+                    Default {
+                        Write-Host "Invalid Input. Enter y/YES or n/NO."
+                        continue removeUserGroup
+                    }
+                }
+            }
         }
 
+        5 {
+
+           Clear-Host
+
+           :createGroup while ($true) {
+
+                $groupName = Read-Host "Input new group name"
+
+                Write-Host "`nYou entered:"
+                Write-Host "Group: $groupName"
+
+                $groupNameConfirm = Read-Host "Is this information correct? (y/YES or n/NO)"
+                switch ($groupNameConfirm) {
+                    { $_ -in @("y", "yes") } {
+                        Write-Host "Creating group: $groupName"
+
+                        New-LocalGroup -Name $groupName
+
+                        Get-LocalGroup
+
+                        break createGroup
+                    }
+
+                    { $_ -in @("n", "no") } {
+                        Write-Host "`nReturning to selection"
+                        continue createGroup
+                    }
+
+                    default {
+                        Write-Host "Invalid Input. Enter y/YES or n/NO."
+                        continue createGroup
+                    }
+                }
+           }
+        }
+
+        6 {
+           
+           Clear-Host
+
+           :removeGroup while ($true) {
+
+                Get-LocalGroup
+                $groupSelect = Read-Host "Input the group name"
+
+                Write-Host "`nYou entered:"
+                Write-Host "Group: $groupSelect"
+
+                $groupSelectConfirm = Read-Host "Is the information correct? (y/YES or n/NO)"
+                switch ($groupSelectConfirm) {
+                    
+                    { $_ -in @("y", "yes") } {
+                        Write-Host "Removing $groupSelect"
+
+                        Remove-LocalGroup -Name $groupSelect
+
+                        Get-LocalGroup
+
+                        break removeGroup
+                    }
+
+                    { $_ -in @("n", "no") } {
+                        Write-Host "`nReturning to group seleciton"
+                        continue removeGroup
+                    }
+
+                    Default {
+                        Write-Host "`nInvalid Input. Enter y/YES or n/NO."
+                        continue removeGroup
+                    }
+                }
+            }
+        }
+
+        7 {
+           
+           Clear-host
+
+           listUsers
+
+           groupUsers
+
+        }
+
+        default {
+            Write-Host "Invalid selection. Enter options 1 - 8."
+        }
     }
 }
