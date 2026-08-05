@@ -152,7 +152,6 @@ while ($quit -ne "yes") {
             }
         }
 
-
         2 {
         
            Clear-Host
@@ -197,7 +196,6 @@ while ($quit -ne "yes") {
             }
 
         }
-
 
         3 {
 
