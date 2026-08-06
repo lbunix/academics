@@ -42,7 +42,7 @@ fi
 
 echo -e "\nStarting backup.."
 
-sudo rsync -zavh -e ssh "${backupDirectories[@]}" "${remoteUser}@${remoteAddress}:${backup_folder}/"
+sudo rsync -zavh -e ssh "${backupDirectories[@]}" "${remoteUser}@${remoteAddress}:${backup_folder}/" > /dev/null
 
 if [[ $? -eq 0 ]]
 then
