@@ -18,6 +18,6 @@ backupDirectories=(
 
 backup_folder="/home/$remoteUser/Documents/backups/$date"
 
-ssh -i "$sshKey" -o BatchMode=yes "${remoteUser}@${remoteAddress}" "mkdir -p -- '$backup_folder'"
+/usr/bin/ssh -i "$sshKey" -o BatchMode=yes "${remoteUser}@${remoteAddress}" "mkdir -p -- '$backup_folder'"
 
-rsync -ae "ssh -i /$HOME/.ssh/rsync.key" "${backupDirectories[@]}" "${remoteUser}@${remoteAddress}:${backup_folder}/" > /dev/null
+/usr/bin/rsync -ae "/usr/bin/ssh -i $sshKey -o BatchMode=yes" "${backupDirectories[@]}" "${remoteUser}@${remoteAddress}:${backup_folder}/" > /dev/null
