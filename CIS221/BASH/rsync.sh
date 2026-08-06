@@ -7,7 +7,7 @@ date="$(date +%m-%d-%Y_%H-%M-%S)"
 
 while :
 do
-    echo "\n========== rsync =========="
+    echo -e "\n========== rsync =========="
     echo -en "\nWhat is the remote username? "
     read remoteUser
 
@@ -16,7 +16,7 @@ do
 
     if [[ -z "$remoteUser" || -z "$remoteAddress" ]]
     then
-        echo "\nIncomplete entry. Please enter all fields."
+        echo -e "\nIncomplete entry. Please enter all fields."
         continue
     else
         break
@@ -24,15 +24,15 @@ do
 done
 
 backupDirectories=(
-    "/etc/"
-    "/home/"
-    "/root/"
+    "/etc"
+    "/home"
+    "/root"
     "/var"
 )
 
 backup_folder="/home/$remoteUser/Documents/backups/$date"
 
-ssh "${remoteUser}@${remoteAddress}" "mkdir -p -- 'backup_folder'"
+ssh "${remoteUser}@${remoteAddress}" "mkdir -p -- '$backup_folder'"
 
 if [[ $? -ne 0 ]]
 then
@@ -46,7 +46,7 @@ sudo rsync -zavh -e ssh "${backupDirectories[@]}" "${remoteUser}@${remoteAddress
 
 if [[ $? -eq 0 ]]
 then
-    echo -e "\nBackful successful!"
+    echo -e "\nBackup successful!"
 else
     echo -e "\nBackup failed."
     exit 1
