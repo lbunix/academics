@@ -1,4 +1,3 @@
-loc@lbunix1:~/Documents/LAB7$ cat menuScript.sh 
 #!/bin/bash
 
 # GLOBALS ################################
@@ -171,11 +170,11 @@ netToolsMenu=(
 netTools() {
 
 # GLOBALS
-quit="no"
+netToolsQuit="no"
 
 # GLOBALS
 
-while [[ "$quit" != "yes" ]]
+while [[ "$netToolsQuit" != "yes" ]]
 do
     while :
     do
@@ -197,53 +196,34 @@ do
 	else
             break
         fi
-    done
 
-    case "$userSelect" in
-        1)
-	    # GLOBALS
-	    target=""
-	    ip="^${octet}\.${octet}\.${octet}\.${octet}$"
+    	case "$userSelect" in
+            1)
+	        echo -en "Enter an IP or domain you would like to trace > "
 
-	    # GLOBALS
-
-    	    if [[ "$domains" =~ $ip ]]
-    	    then
-        	target="$domains"
-
-    	    elif [[ "$domains" =~ [A-Za-z] ]]
-    	    then
-        	target=$(dig +short A "$domains" | grep -m 1 -E '^[0-9]+(\.[0-9]+){3}$')
-
-    	    fi
-    esac
-
-    for target in "${targets[@]}"
-    do
-        echo "Pinging $target..."
-        echo "If ping does not reach, then you have input an incorrect domain/ IP address."
-        ping -c 2 "$target" &
+                echo "Tracing $target..."
+                echo "If trace does not reach, then you have input an incorrect domain/ IP address."
+	        echo ""
+                traceroute "$target"
+	    ;;
+	    2)
+	        ip a
+	        echo -e "\nEnd session with q/Q"
+	    ;;
+	    3)
+	        ip link show
+	        echo -e "\nEnd session with q/Q"
+	    ;;
+	    4)
+	        echo "Ending session."
+	        netToolsQuit="yes"
+	    ;;
+	    *)
+	        echo "Incorrect input. Please select from one of the NUMBERED options."
+	    ;;
+        esac
     done
 done
-	    break 3
-	;;
-	2)
-	    ip a
-	    echo -e "\nEnd session with q/Q"
-	    break 3
-	;;
-	3)
-	    ip link show
-	    echo -e "\nEnd session with q/Q"
-	    break
-	;;
-	4)
-	    echo "Ending session."
-	    exit
-	;;
-	*)
-	    echo "Incorrect input. Please select from one of the NUMBERED options."
-	    break 3
 }
 
 exitProgram() {
@@ -297,8 +277,7 @@ do
 	    netTools
 	;;
 	7)
-	    echo -e "Ending session.\n"
-	    "$quit" = "yes"
+	    exitProgram
 	;;
 	*)
 	    echo -e "\nIncorrect input. Select a NUMBERED option from the menu.\n"
