@@ -105,23 +105,11 @@ ip="^${octet}\.${octet}\.${octet}\.${octet}$"
 while :
 do
     echo -en "Enter the Domain/IP Address to check it's status > "
-    read address
+    read target
 
-    if [[ "$address" =~ $ip ]]
-    then
-        target="$address"
-
-    elif [[ "$address" =~ [A-Za-z] ]]
-    then
-        target=$(dig +short A "$address" | grep -m 1 -E '^[0-9]+(\.[0-9]+){3}$')
-    else
-        echo "Incorrect input."
-        continue
-    fi
-
-    echo "Pinging $target..."
-    echo "If ping does not reach, then you have input an incorrect domain/ IP address."
-    ping -c 2 "$target" &
+    echo "\nPinging $target..."
+    echo "### If ping does not reach, then you have input an incorrect domain/ IP address. ###"
+    ping -c 4 "$target"
 
 done
 
@@ -176,53 +164,51 @@ netToolsQuit="no"
 
 while [[ "$netToolsQuit" != "yes" ]]
 do
-    while :
+    for list in "${netToolsMenu[@]}"
     do
-        for list in "${netToolsMenu[@]}"
-        do
-            echo $list
-        done
-
-        echo -en "\nSelect an option (number) > "
-        read -a userSelect
-
-        if [[ ! "$userSelect" =~ ^[0-9] ]]
-        then
-            echo -e "\nNot a valid entry. Please enter a number from the options."
-            continue
-        elif [[ "$userSelect" == "q" || "$userSelect" == "Q" ]]
-	then
-	    "$quit" = "yes"
-	else
-            break
-        fi
-
-    	case "$userSelect" in
-            1)
-	        echo -en "Enter an IP or domain you would like to trace > "
-
-                echo "Tracing $target..."
-                echo "If trace does not reach, then you have input an incorrect domain/ IP address."
-	        echo ""
-                traceroute "$target"
-	    ;;
-	    2)
-	        ip a
-	        echo -e "\nEnd session with q/Q"
-	    ;;
-	    3)
-	        ip link show
-	        echo -e "\nEnd session with q/Q"
-	    ;;
-	    4)
-	        echo "Ending session."
-	        netToolsQuit="yes"
-	    ;;
-	    *)
-	        echo "Incorrect input. Please select from one of the NUMBERED options."
-	    ;;
-        esac
+        echo $list
     done
+
+    echo -en "\nSelect an option (number) > "
+    read -a userSelect
+
+    if [[ ! "$userSelect" =~ ^[0-9] ]]
+    then
+        echo -e "\nNot a valid entry. Please enter a number from the options."
+        continue
+    elif [[ "$userSelect" == "q" || "$userSelect" == "Q" ]]
+    then
+	"$quit" = "yes"
+    else
+        break
+    fi
+
+    case "$userSelect" in
+        1)
+	    echo -en "Enter an IP or domain you would like to trace > "
+	    read target
+
+            echo "\nTracing $target..."
+            echo "### If trace does not reach, then you have input an incorrect domain/ IP address. ###"
+	    echo ""
+            traceroute "$target"
+	;;
+	2)
+	    ip a
+	    echo -e "\nEnd session with q/Q"
+	;;
+	3)
+	    ip link show
+	    echo -e "\nEnd session with q/Q"
+	;;
+	4)
+	    echo "Ending session."
+	    netToolsQuit="yes"
+	;;
+	*)
+	    echo "Incorrect input. Please select from one of the NUMBERED options."
+	;;
+    esac
 done
 }
 
