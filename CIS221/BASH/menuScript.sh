@@ -31,6 +31,8 @@ menu=(
 
 copyFile() {
 
+clear
+
 while :
 do
     echo -en "\nInput the file including the full path >  "
@@ -84,12 +86,16 @@ done
 
 showIP() {
 
+clear
+
 echo ""
 ip a | grep "inet "
 
 }
 
 loggedOnStat() {
+
+clear
 
 echo ""
 who
@@ -98,26 +104,30 @@ who
 
 serverStatus() {
 
-# GLOBALS
-octet='(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])'
-ip="^${octet}\.${octet}\.${octet}\.${octet}$"
-
-# GLOBALS
-
 while :
 do
     echo -en "\nEnter the Domain/IP Address to check it's status > "
     read target
 
-    echo "\nPinging $target..."
-    echo "### If ping does not reach, then you have input an incorrect domain/ IP address. ###"
+    if [[ "$target" == q || "$target" == Q ]]
+    then
+	break
+    fi
+
+    echo ""
     ping -c 4 "$target"
+
+    echo ""
+    echo "### You may quit with q|Q ###"
 
 done
 
+clear
 }
 
 rollDice() {
+
+clear
 
 # GLOBALS
 
@@ -161,6 +171,8 @@ netToolsMenu=(
 
 netTools() {
 
+clear
+
 # GLOBALS
 netToolsQuit="no"
 
@@ -174,49 +186,76 @@ do
     done
 
     echo -en "\nSelect an option (number) > "
-    read -a userSelect
+    read netToolsSelect
 
-    if [[ ! "$userSelect" =~ ^[0-9] ]]
+    if [[ ! "$netToolsSelect" =~ ^[1-4] ]]
     then
-        echo -e "\nNot a valid entry. Please enter a number from the options."
+        echo -e "\nNot a valid entry. Please enter a number from the options.\n"
         continue
-    elif [[ "$userSelect" == "q" || "$userSelect" == "Q" ]]
+    elif [[ "$netToolsSelect" == "q" || "$netToolsSelect" == "Q" ]]
     then
-	"$quit" = "yes"
-    else
-        break
+	"$netToolsQuit" = "yes"
     fi
 
-    case "$userSelect" in
+    case "$netToolsSelect" in
         1)
+	    clear
+
+	    if ! command -v traceroute > /dev/null 2>&1
+	    then
+		echo -e "\nTraceroute is not installed."
+
+		echo -en "Would you like to install Traceroute? (y/N) > "
+		read installConfirm
+
+		if [[ "$installConfirm" == y || "$installConfirm" == Y ]]
+		then
+		    sudo apt update
+		    sudo apt install -y traceroute
+		else
+		    echo -e "\nThis option cannot be conducted."
+		    echo -e "Returning to net tools menu.\n"
+		    continue
+		fi
+	    fi
+
+	    echo ""
 	    echo -en "Enter an IP or domain you would like to trace > "
 	    read target
 
-            echo "\nTracing $target..."
+            echo -e "\nTracing $target..."
             echo "### If trace does not reach, then you have input an incorrect domain/ IP address. ###"
 	    echo ""
             traceroute "$target"
+	    echo ""
 	;;
 	2)
+	    clear
+	    echo ""
 	    ip a
-	    echo -e "\nEnd session with q/Q"
+	    echo ""
 	;;
 	3)
+	    clear
+	    echo ""
 	    ip link show
-	    echo -e "\nEnd session with q/Q"
+	    echo ""
 	;;
 	4)
-	    echo "Ending session."
+	    echo -e "\nEnding session.\n"
 	    netToolsQuit="yes"
+	    clear
 	;;
 	*)
-	    echo "Incorrect input. Please select from one of the NUMBERED options."
+	    echo -e "\nIncorrect input. Please select from one of the NUMBERED options.\n"
 	;;
     esac
 done
 }
 
 asciiPrint() {
+
+clear
 
 echo ""
 cat <<'E0F'
@@ -251,29 +290,21 @@ quit="yes"
 
 # MENU OPTIONS ################################
 
+clear
+
 while [[ "$quit" != "yes" ]]
 do
+    clear
 
-    while :
+    title
+
+    for list in "${menu[@]}"
     do
-        title
-
-        for list in "${menu[@]}"
-        do
-            echo $list
-        done
-
-        echo -en "\nSelect an option (number) > "
-        read -a userSelect
-
-        if [[ ! "$userSelect" =~ ^[0-9] ]]
-        then
-            echo -e "\nNot a valid entry. Please enter a number from the options."
-            continue
-        else
-            break
-        fi
+        echo $list
     done
+
+    echo -en "\nSelect an option (number) > "
+    read userSelect
 
     case "$userSelect" in
         1)
@@ -289,10 +320,10 @@ do
 	    serverStatus
 	;;
 	5)
-	    rollDice
+	    netTools
 	;;
 	6)
-	    netTools
+	   rollDice
 	;;
 	7)
 	    asciiPrint
@@ -302,7 +333,12 @@ do
 	;;
 	*)
 	    echo -e "\nIncorrect input. Select a NUMBERED option from the menu.\n"
-	    break
 	;;
     esac
+
+    if [[ "$quit" != "yes" ]]
+    then
+	    echo
+	    read -p "Press ENTER to return to the menu"
+    fi
 done
