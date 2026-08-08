@@ -65,7 +65,7 @@ do
 		then
 		    continue
 		else
-		    echo "\nIncorrect Input. y|Y or n|N."
+		    echo -e "\nIncorrect Input. y|Y or n|N."
 		    continue
 		fi
 	    done
@@ -84,12 +84,14 @@ done
 
 showIP() {
 
+echo ""
 ip a | grep "inet "
 
 }
 
 loggedOnStat() {
 
+echo ""
 who
 
 }
@@ -104,7 +106,7 @@ ip="^${octet}\.${octet}\.${octet}\.${octet}$"
 
 while :
 do
-    echo -en "Enter the Domain/IP Address to check it's status > "
+    echo -en "\nEnter the Domain/IP Address to check it's status > "
     read target
 
     echo "\nPinging $target..."
@@ -137,11 +139,13 @@ dice=(
 diceOne="${dice[$((RANDOM % ${#dice[@]}))]}"
 diceTwo="${dice[$((RANDOM % ${#dice[@]}))]}"
 
+echo ""
 echo "Die #1: $diceOne"
 echo "Die #2: $diceTwo"
 
 total=$((diceOne + diceTwo))
 
+echo ""
 echo "Combined roll = $total"
 
 }
@@ -214,7 +218,8 @@ done
 
 asciiPrint() {
 
-    cat <<'E0F'
+echo ""
+cat <<'E0F'
 
      .    _    +     .  ______   .          .
   (      /|\      .    |      \      .   +
@@ -237,8 +242,11 @@ E0F
 }
 
 exitProgram() {
+
+echo ""
 echo "Ending session."
 quit="yes"
+
 }
 
 # MENU OPTIONS ################################
