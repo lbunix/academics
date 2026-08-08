@@ -1,7 +1,8 @@
 ---
 - name: Configurations for vyOS
   hosts: vyos
-
+  gather_facts: false
+  
   tasks:
     - name: Interface description deletion
       vyos.vyos.vyos_config:
