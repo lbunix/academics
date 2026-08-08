@@ -1,0 +1,52 @@
+---
+- name: Configurations for vyOS
+  hosts: vyos
+
+  tasks:
+    - name: Interface description deletion
+      vyos.vyos.vyos_config:
+        lines:
+          - delete interfaces ethernet eth3 description
+          - delete interfaces ethernet eth4 description
+          - delete interfaces loopback lo description
+        save: true
+
+    - name: Setting DNS server
+      vyos.vyos.vyos_config:
+        lines:
+          - set system name-server 10.129.0.5
+        save: true
+
+    - name: Firewall ipv4 configuration
+      vyos.vyos.vyos_config:
+        lines:
+          - set firewall ipv4 input filter rule 1 action 'accept'
+          - set firewall ipv4 input filter rule 1 state 'established'
+          - set firewall ipv4 input filter rule 1 state 'related'
+
+          - set firewall ipv4 input filter rule 2 action 'drop'
+          - set firewall ipv4 input filter rule 2 state 'invalid'
+
+          - set firewall ipv4 input filter rule 10 action 'accept'
+          - set firewall ipv4 input filter rule 10 protocol 'icmp'
+          - set firewall ipv4 input filter rule 10 icmp type-name 'echo-request'
+
+          - set firewall ipv4 input filter rule 20 action 'accept'
+          - set firewall ipv4 input filter rule 20 protocol 'tcp'
+          - set firewall ipv4 input filter rule 20 destination port '22'
+
+          - set firewall ipv4 input filter rule 30 action 'accept'
+          - set firewall ipv4 input filter rule 30 protocol 'tcp_udp'
+          - set firewall ipv4 input filter rule 30 destination port '53'
+
+          - set firewall ipv4 input filter rule 40 action 'accept'
+          - set firewall ipv4 input filter rule 40 protocol 'tcp'
+          - set firewall ipv4 input filter rule 40 destination port '80'
+
+          - set firewall ipv4 input filter rule 50 action 'accept'
+          - set firewall ipv4 input filter rule 50 protocol 'tcp'
+          - set firewall ipv4 input filter rule 50 destination port '443'
+
+          - set firewall ipv4 input filter default-action 'drop'
+
+        save: true
