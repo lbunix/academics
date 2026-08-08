@@ -237,8 +237,8 @@ do
 
     if [[ "$netToolsQuit" != "yes" ]]
     then
-	echo
-	read -p "Press ENTER to return to the menu"
+	    echo
+	    read -p "Press ENTER to return to the menu"
     fi
 done
 }
