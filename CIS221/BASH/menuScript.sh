@@ -74,7 +74,7 @@ do
 	    continue
 	    ;;
 	* )
-	    echo "\nIncorrect Input. Please try again."
+	    echo -e "\nIncorrect Input. Please try again."
 	    continue
 	    ;;
     esac
