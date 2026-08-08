@@ -31,8 +31,6 @@ menu=(
 
 copyFile() {
 
-clear
-
 while :
 do
     echo -en "\nInput the file including the full path >  "
@@ -86,16 +84,12 @@ done
 
 showIP() {
 
-clear
-
 echo ""
 ip a | grep "inet "
 
 }
 
 loggedOnStat() {
-
-clear
 
 echo ""
 who
@@ -126,8 +120,6 @@ clear
 }
 
 rollDice() {
-
-clear
 
 # GLOBALS
 
@@ -171,8 +163,6 @@ netToolsMenu=(
 
 netTools() {
 
-clear
-
 # GLOBALS
 netToolsQuit="no"
 
@@ -180,6 +170,8 @@ netToolsQuit="no"
 
 while [[ "$netToolsQuit" != "yes" ]]
 do
+    clear
+
     for list in "${netToolsMenu[@]}"
     do
         echo $list
@@ -188,19 +180,14 @@ do
     echo -en "\nSelect an option (number) > "
     read netToolsSelect
 
-    if [[ ! "$netToolsSelect" =~ ^[1-4] ]]
+    if [[ ! "$netToolsSelect" =~ ^[1-4]$ ]]
     then
         echo -e "\nNot a valid entry. Please enter a number from the options.\n"
         continue
-    elif [[ "$netToolsSelect" == "q" || "$netToolsSelect" == "Q" ]]
-    then
-	"$netToolsQuit" = "yes"
     fi
 
     case "$netToolsSelect" in
         1)
-	    clear
-
 	    if ! command -v traceroute > /dev/null 2>&1
 	    then
 		echo -e "\nTraceroute is not installed."
@@ -230,13 +217,11 @@ do
 	    echo ""
 	;;
 	2)
-	    clear
 	    echo ""
 	    ip a
 	    echo ""
 	;;
 	3)
-	    clear
 	    echo ""
 	    ip link show
 	    echo ""
@@ -244,18 +229,21 @@ do
 	4)
 	    echo -e "\nEnding session.\n"
 	    netToolsQuit="yes"
-	    clear
 	;;
 	*)
 	    echo -e "\nIncorrect input. Please select from one of the NUMBERED options.\n"
 	;;
     esac
+
+    if [[ "$netToolsQuit" != "yes" ]]
+    then
+	echo
+	read -p "Press ENTER to return to the menu"
+    fi
 done
 }
 
 asciiPrint() {
-
-clear
 
 echo ""
 cat <<'E0F'
@@ -306,6 +294,12 @@ do
     echo -en "\nSelect an option (number) > "
     read userSelect
 
+    if [[ ! "$userSelect" =~ ^[1-8]$ ]]
+    then
+        echo -e "\nNot a valid entry. Please enter a number from the options.\n"
+        continue
+    fi
+
     case "$userSelect" in
         1)
 	    copyFile
@@ -321,6 +315,7 @@ do
 	;;
 	5)
 	    netTools
+	    continue
 	;;
 	6)
 	   rollDice
