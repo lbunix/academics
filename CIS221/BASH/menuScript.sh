@@ -17,9 +17,9 @@ menu=(
     "2) Show your local IP address"
     "3) Who is currently logged in"
     "4) Confirm that a server is up"
-    "5) Pattern Checker Menu"
+    "5) Net Tools Menu"
     "6) Roll a dice"
-    "7) "
+    "7) Secret Image"
     "8) Exit program"
     ""
     "-------------------------------"
@@ -212,6 +212,36 @@ do
 done
 }
 
+ascii=(
+
+"     .    _    +     .  ______   .          ."
+"  (      /|\      .    |      \      .   +"
+"      . |||||     _    | |   | | ||         ."
+" .      |||||    | |  _| | | | |_||    ."
+"    /\  ||||| .  | | |   | |      |       ."
+" __||||_|||||____| |_|_____________\__________"
+" . |||| |||||  /\   _____      _____  .   ."
+"   |||| ||||| ||||   .   .  .         ________"
+"  . \|`-'|||| ||||    __________       .    ."
+"     \__ |||| ||||      .          .     ."
+"  __    ||||`-'|||  .       .    __________"
+" .    . |||| ___/  ___________             ."
+"    . _ ||||| . _               .   _________"
+" _   ___|||||__  _ \\--//    .          _"
+"      _ `---'    .)=\oo|=(.   _   .   .    ."
+" _  ^      .  -    . \.|"
+
+)
+
+asciiPrint() {
+
+for picture in "${ascii[@]}"
+do
+    echo $picture
+done
+
+}
+
 exitProgram() {
 echo "Ending session."
 quit="yes"
@@ -263,6 +293,9 @@ do
 	    netTools
 	;;
 	7)
+	    asciiPrint
+	;;
+	8)
 	    exitProgram
 	;;
 	*)
