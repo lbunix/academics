@@ -54,7 +54,7 @@ CREATE TABLE [character] (
 	in_game_name VARCHAR(16) NOT NULL,
 	date_created DATE NOT NULL,
 	last_logon DATE,
-	player_account_id INT NOT NULL,
+	player_account_id INT,
 	character_type_id INT NOT NULL,
 	world_id INT NOT NULL,
 	FOREIGN KEY (player_account_id) REFERENCES player_account(player_account_id),
@@ -73,7 +73,7 @@ CREATE TABLE region (
 CREATE TABLE world (
 	world_id INT IDENTITY(1,1) PRIMARY KEY,
 	world_name VARCHAR(16) NOT NULL,
-	region_id INT,
+	region_id INT NOT NULL,
 	FOREIGN KEY (region_id) REFERENCES region(region_id)
 );
 
