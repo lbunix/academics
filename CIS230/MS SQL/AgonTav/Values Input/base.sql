@@ -1,3 +1,6 @@
+USE CIS230_FINAL;
+GO
+
 INSERT INTO [user] (first_name, last_name, [user_name], email, dob, email_subscription, user_type_id)
 VALUES
 	('Loc', 'Bui', 'lbunix', 'loc@example.com','1990-01-01', 0, 1),
@@ -10,6 +13,21 @@ VALUES
 	('Celeste', 'Waller', 'cwaller', 'celeste@example94.com','1994-06-26', 0, 2),
 	('Linda', 'Ayala', 'layala', 'layla@example57.com','2004-03-30', 0, 2),
 	('Dean', 'Rice', 'drice', 'dean@example75.com','2001-09-11', 0, 2);
+
+INSERT INTO player_account (date_created, last_login, account_id)
+VALUES
+
+    -- Player Accounts
+    ('2020-03-19', '2026-08-10', 1), -- Loc
+    ('2020-03-19', '2026-08-10', 2), -- Karen
+    ('2020-03-19', '2026-08-10', 3), -- Chris
+    ('2020-03-19', '2026-08-10', 4), -- Martha
+    ('2020-03-19', '2026-08-10', 5), -- Jake
+    ('2020-03-19', '2026-08-10', 6), -- Isaac
+    ('2020-03-19', '2026-07-25', 7), -- Ben
+    ('2020-03-19', '2025-01-17', 8), -- Celeste
+    ('2020-03-19', '2025-12-24', 9), -- Linda
+    ('2020-03-19', '2026-08-09', 10); -- Dean
 
 INSERT INTO [character] (in_game_name, date_created, last_logon, player_account_id, character_type_id, world_id)
 VALUES
@@ -28,7 +46,7 @@ VALUES
 	('Margot the Inn Keeper', '2020-03-19', NULL, NULL, 1, 1),
 	('Kemeo the Inn Keeper', '2020-03-19', NULL, NULL, 1, 2),
 	('Srimur the Inn Keeper', '2020-03-19', NULL, NULL, 1, 3),
-	('cavu the Inn Keeper', '2020-03-19', NULL, NULL, 1, 4),
+	('Cavu the Inn Keeper', '2020-03-19', NULL, NULL, 1, 4),
 	('Wrote the Inn Keeper', '2020-03-19', NULL, NULL, 1, 5),
 	('Zece the Blacksmith', '2020-03-19', NULL, NULL, 1, 1),
 	('Paxom the Blacksmith', '2020-03-19', NULL, NULL, 1, 2),
@@ -63,7 +81,7 @@ VALUES
     ('Pzowoi',     17, 16, 11,  8, 10,  9, 18, 'Warrior build'),
     ('Oyzagra',    10, 11, 18, 12, 10, 14, 14, 'Rogue build'),
     ('Nuri',        7, 10, 12, 19, 14, 11, 17, 'Mage build'),
-    ('Odutil',     16, 18,  9, 10, 15,  8, 17, 'Paladin tank build'),
+    ('Oduti',     16, 18,  9, 10, 15,  8, 17, 'Paladin tank build'),
     ('Kimi',       11, 12, 18, 12, 10, 13, 15, 'Ranger build'),
     ('Bjeka',       9, 11, 14, 13, 19, 15, 10, 'Bard support build'),
     ('Cerokoz',    19, 17, 12,  7,  8, 10, 20, 'Berserker build'),
@@ -72,7 +90,7 @@ VALUES
     ('Margot the Inn Keeper', 6, 10,  9, 11, 18, 12, 3, 'Inn keeper'),
     ('Kemeo the Inn Keeper',  7, 10, 10, 12, 17, 13, 3, 'Inn keeper'),
     ('Srimur the Inn Keeper', 5,  9, 11, 13, 18, 14, 2, 'Inn keeper'),
-    ('cavu the Inn Keeper',   6, 11,  9, 12, 16, 15, 3, 'Inn keeper'),
+    ('Cavu the Inn Keeper',   6, 11,  9, 12, 16, 15, 3, 'Inn keeper'),
     ('Wrote the Inn Keeper',  7, 10, 10, 11, 19, 12, 3, 'Inn keeper'),
 
     -- Blacksmiths
