@@ -14,7 +14,7 @@ CREATE TABLE [user] (
 	email VARCHAR(64) NOT NULL,
 	dob DATE NOT NULL,
 	email_subscription BIT NOT NULL DEFAULT 1, -- 0 = No, 1 = Yes (default)
-	user_type_id INT,
+	user_type_id INT NOT NULL,
 	FOREIGN KEY (user_type_id) REFERENCES user_type(user_type_id)
 );
 
@@ -26,7 +26,7 @@ CREATE TABLE player_account (
 	friend_count INT NOT NULL DEFAULT 0,
 	chat_count INT NOT NULL DEFAULT 0,
 	character_count INT NOT NULL DEFAULT 0,
-	account_id INT UNIQUE,
+	account_id INT NOT NULL UNIQUE,
 	FOREIGN KEY (account_id) REFERENCES [user](account_id)
 );
 
@@ -50,13 +50,13 @@ CREATE TABLE character_attributes (
 );
 
 CREATE TABLE [character] (
-	character_id INT PRIMARY KEY,
+	character_id INT IDENTITY(1,1) PRIMARY KEY,
 	in_game_name VARCHAR(16) NOT NULL,
 	date_created DATE NOT NULL,
 	last_logon DATE,
-	player_account_id INT,
-	character_type_id INT,
-	world_id INT,
+	player_account_id INT NOT NULL,
+	character_type_id INT NOT NULL,
+	world_id INT NOT NULL,
 	FOREIGN KEY (player_account_id) REFERENCES player_account(player_account_id),
 	FOREIGN KEY (character_type_id) REFERENCES character_type(character_type_id)
 --	FOREIGN KEY (world_id) REFERENCES world(world_id)
