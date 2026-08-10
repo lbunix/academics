@@ -34,4 +34,12 @@ VALUES
 	('Grimhollow', 3),
 	('Morrowind', 4),
 	('Erebor', 5);
+
+ALTER TABLE character_type
+ADD [name] AS (
+	CASE
+		WHEN [type] = 0 THEN 'NPC'
+		WHEN [type] = 1 THEN 'Playable'
+	END
+);
 GO
