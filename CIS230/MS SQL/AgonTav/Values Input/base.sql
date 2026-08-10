@@ -14,20 +14,20 @@ VALUES
 	('Linda', 'Ayala', 'layala', 'layla@example57.com','2004-03-30', 0, 2),
 	('Dean', 'Rice', 'drice', 'dean@example75.com','2001-09-11', 0, 2);
 
-INSERT INTO player_account (date_created, last_login, account_id)
+INSERT INTO player_account (date_created, last_login, character_count, account_id)
 VALUES
 
     -- Player Accounts
-    ('2020-03-19', '2026-08-10', 1), -- Loc
-    ('2020-03-19', '2026-08-10', 2), -- Karen
-    ('2020-03-19', '2026-08-10', 3), -- Chris
-    ('2020-03-19', '2026-08-10', 4), -- Martha
-    ('2020-03-19', '2026-08-10', 5), -- Jake
-    ('2020-03-19', '2026-08-10', 6), -- Isaac
-    ('2020-03-19', '2026-07-25', 7), -- Ben
-    ('2020-03-19', '2025-01-17', 8), -- Celeste
-    ('2020-03-19', '2025-12-24', 9), -- Linda
-    ('2020-03-19', '2026-08-09', 10); -- Dean
+    ('2020-03-19', '2026-08-10', 0, 1), -- Loc
+    ('2020-03-19', '2026-08-10', 0, 2), -- Karen
+    ('2020-03-19', '2026-08-10', 0, 3), -- Chris
+    ('2020-03-19', '2026-08-10', 0, 4), -- Martha
+    ('2020-03-19', '2026-08-10', 1, 5), -- Jake
+    ('2020-03-19', '2026-08-10', 2, 6), -- Isaac
+    ('2020-03-19', '2026-07-25', 2, 7), -- Ben
+    ('2020-03-19', '2025-01-17', 1, 8), -- Celeste
+    ('2020-03-19', '2025-12-24', 1, 9), -- Linda
+    ('2020-03-19', '2026-08-09', 1, 10); -- Dean
 
 INSERT INTO [character] (in_game_name, date_created, last_logon, player_account_id, character_type_id, world_id)
 VALUES
