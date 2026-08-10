@@ -20,8 +20,8 @@ CREATE TABLE [user] (
 
 CREATE TABLE player_account (
 	player_account_id INT IDENTITY(1,1) PRIMARY KEY,
-	date_created INT NOT NULL,
-	last_login INT,
+	date_created DATE NOT NULL,
+	last_login DATE,
 	achievement_count INT NOT NULL DEFAULT 0,
 	friend_count INT NOT NULL DEFAULT 0,
 	chat_count INT NOT NULL DEFAULT 0,
@@ -36,29 +36,29 @@ CREATE TABLE character_type (
 );
 
 CREATE TABLE character_attributes (
-	character_id INT IDENTITY(1,1) PRIMARY KEY,
-	strength INT DEFAULT 0,
-	constitution INT DEFAULT 0,
-	dexterity INT DEFAULT 0,
-	intelligence INT DEFAULT 0,
-	charisma INT DEFAULT 0,
-	luck INT DEFAULT 0,
-	damage INT DEFAULT 0,
+	character_id INT PRIMARY KEY,
+	strength INT NOT NULL DEFAULT 0,
+	constitution INT NOT NULL DEFAULT 0,
+	dexterity INT NOT NULL DEFAULT 0,
+	intelligence INT NOT NULL DEFAULT 0,
+	charisma INT NOT NULL DEFAULT 0,
+	luck INT NOT NULL DEFAULT 0,
+	damage INT NOT NULL DEFAULT 0,
 	[description] VARCHAR(64)
 --	character_id INT,
 --	FOREIGN KEY (character_id) REFERENCES [character](character_id)
 );
 
 CREATE TABLE [character] (
-	character_id INT IDENTITY(1,1) PRIMARY KEY,
+	character_id INT PRIMARY KEY,
 	in_game_name VARCHAR(16) NOT NULL,
-	date_created INT NOT NULL,
-	last_logon INT,
+	date_created DATE NOT NULL,
+	last_logon DATE,
 	player_account_id INT,
 	character_type_id INT,
 	world_id INT,
 	FOREIGN KEY (player_account_id) REFERENCES player_account(player_account_id),
-	FOREIGN KEY (character_type_id) REFERENCES character_type(character_type_id),
+	FOREIGN KEY (character_type_id) REFERENCES character_type(character_type_id)
 --	FOREIGN KEY (world_id) REFERENCES world(world_id)
 );
 
